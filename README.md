@@ -1,0 +1,1 @@
+# plugins-automatic-translations-for-polylang
