@@ -4,7 +4,7 @@ Tags: Polylang, AI Translation, Content Translation, Translate
 Requires at least: 5.0
 Tested up to: 6.8.1
 Requires PHP: 5.6
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 Author URI: https://coolplugins.net/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,7 +13,7 @@ AI Translation For Polylang simplifies your translation process by automatically
 == Description ==
 **Translate Your WordPress Website 10X Faster – Powered by AI, Built for Polylang**.
 
-https://www.youtube.com/watch?v=ecHsOyIL_J4
+https://www.youtube.com/watch?v=QGOueushC8U
 
 [**AutoPoly - AI Translation For Polylang**](https://coolplugins.net/product/autopoly-ai-translation-for-polylang/?utm_source=atfp_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=top_description) reduces your translation **workload by 90%**. With this powerful addon, you can translate your **Gutenberg** and **Elementor pages**, sections, and widgets within a few clicks.
 
@@ -21,7 +21,6 @@ This addon duplicates and translates **page/post titles, content, images, galler
 
 Whether you're using **Elementor** or **Gutenberg**, this addon makes the translation process easier, allowing you to focus on expanding your global audience effortlessly.
 
-https://youtu.be/bmmc-Ynwj8w
 
 == Key Features ==
 
@@ -41,13 +40,14 @@ https://youtu.be/bmmc-Ynwj8w
 **Free License**
 
 * ✅ **Yandex Translate Widget Support:** Available
-* ✅ **Unlimited Free Translations:** Available (Only via Yandex)
-* ✅ **API Key Required:** Not Required (Yandex Widget Support)
+* ✅ **Chrome Built-in AI Translation Support:** Available
+* ✅ **API Key Required:** Not Required (Yandex Widget & Chrome Built-in AI)
 * ✅ **Gutenberg Block Compatibility**
 * ✅ **Elementor Page Translation**
 * ✅ **Inline Translation**
+* ✅ **Custom Block Translation:** Available
 * ❌ **Classic Editor Translation:** Not Available
-* ❌ **Custom Block Translation:** Not Available
+* ❌ **Unlimited Free Translations:** Not Available (500k characters only)
 * ❌ **Google Translate Widget Support:** Not Available
 * ❌ **OpenAI Translation Support:** Not Available
 * ❌ **Gemini Translation Support:** Not Available
@@ -70,6 +70,8 @@ https://youtu.be/bmmc-Ynwj8w
   (**Support time:- 24-48 hours**)
 
 &#x20;[**Upgrade to Pro!**](https://coolplugins.net/product/autopoly-ai-translation-for-polylang/?utm_source=atfp_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=get_pro)
+
+https://www.youtube.com/watch?v=M-3Miv_JTY4
 
 #### Our Advanced Language Switcher Plugins
 
@@ -156,11 +158,10 @@ This plugin provides automatic translation services for Polylang using the Yande
 * [Chrome Prompt API Documentation for Extensions](https://developer.chrome.com/docs/extensions/ai/prompt-api)
 
 == Screenshots ==
-1. Gutenberg Page Content Translation Preview.
-2. Elementor Page Content Translation Preview.
+1. AutoPoly Auto Translate Button & Translation modal.
+2. Elementor Page Translation.
 3. AutoPoly - AI Translation For Polylang Preview.
 4. Gutenberg Block inline Translation.
-5. Elementor AI Translation.
 
 == Frequently Asked Questions ==
 
@@ -211,13 +212,20 @@ You can update the plugin through the WordPress dashboard like any other plugin.
 The plugin is optimized for performance, but the speed impact may vary depending on your hosting environment and the size of your content. The automatic translation process occurs in the background to minimize any potential impact on site performance.
 
 = Does this plugin support the Classic Editor? =
-Currently, this plugin does not support automatic translations for content created with the Classic Editor. It is designed to work with Elementor and Gutenberg blocks only.
+Yes, this plugin supports automatic translations for content created with the Classic Editor only in the pro version.
 
 = How can I report security bugs? =
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities.[Report a security vulnerability](https://patchstack.com/database/wordpress/plugin/automatic-translations-for-polylang/vdp)
 
 == Changelog ==
+
+= Version 1.4.3 | 10 July 2025 =
+
+* **Added:** Enhanced user opt-in options for better customization.
+* **Improved:** Update screenshots.
+
 = Version 1.4.2 | 03 July 2025 =
+
 * **Tweaks:**  Rebranded  from  **AI Translation for Polylang**  to   **AutoPoly - AI Translation For Polylang**.
 * **Fixed:** Content format issue after translation.
 * **Added:** Bulk Translation Pro button & pro version AI providers buttons.
@@ -226,6 +234,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * **Improved:** Text domain same as plugin name.
 * **Tested up to:** WordPress 6.8.1.
 * **Tested up to:** Elementor 3.30.1 & Elementor Pro 3.30.0.
+
 = Version 1.4.1 | 09 June 2025 =
 
 * **Fixed:** Fixed inline translation issue with browser latest version.
