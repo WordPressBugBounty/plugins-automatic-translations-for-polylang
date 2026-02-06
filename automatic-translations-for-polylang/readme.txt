@@ -2,9 +2,9 @@
 Contributors: narinder-singh,satindersingh,coolplugins
 Tags: Polylang, AI Translation, Content Translation, Translate
 Requires at least: 5.0
-Tested up to: 6.8.1
+Tested up to: 6.9
 Requires PHP: 5.6
-Stable tag: 1.4.5
+Stable tag: 1.4.7
 Author URI: https://coolplugins.net/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -219,7 +219,25 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= Version 1.4.7 | 03 December 2025 =
+* **Fixed:** Translation modal not working with wordpress latest version 6.9.
+* **Tested up to:** WordPress 6.9.
+
+= Version 1.4.6 | 03 November 2025 =
+
+* **Added:** Support for translating Rank Math SEO table blocks and core table headers and footers.
+* **Added:** Confirmation box when translating in a different editor but the page is made with Elementor.
+* **Fixed:** Issue with Elementor HTML tags not rendering correctly after translation.
+* **Fixed:** Translation now works for ACF repeater fields in Gutenberg.
+* **Fixed:** Missing translations for some fields in Elementor testimonial widget.
+* **Fixed:** JavaScript error when updating Gutenberg content.
+* **Fixed:** Fixed line break formatting in WYSIWYG content.
+* **Improved:** Added animation to the update button for long updates.
+* **Improved:** Optimized performance of inline translation and smaller file size.
+* **Improved:** Improved the block content update process.
+
 = Version 1.4.5 | 21 August 2025 =
+
 * **Fixed:** Addressed security vulnerabilities.
 
 = Version 1.4.4 | 24 July 2025 =

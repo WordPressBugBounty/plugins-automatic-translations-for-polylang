@@ -17,22 +17,11 @@
   margin-bottom: .5rem;
 }
 
-.cpt-review-notice .cpt-review-notice-dismiss {
+.cpt-review-notice .atfp-review-notice-dismiss {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 10px;
-}
-
-.cpt-review-notice .cpt-not-interested {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
-
-body.rtl .cpt-review-notice .cpt-not-interested {
-  right: auto;
-  left: 5px;
 }
 
 .cpt-review-notice :where(.cpt-not-interested, .cpt-already-reviewed)::before {
@@ -43,10 +32,6 @@ body.rtl .cpt-review-notice .cpt-not-interested {
   vertical-align: middle;
   margin-right: 4px;
   height: 22px;
-}
-
-.cpt-review-notice a.button.button-primary{
- margin-right: 10px;
 }
 
 .cpt-dashboard {
