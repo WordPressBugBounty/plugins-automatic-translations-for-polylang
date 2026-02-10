@@ -42,8 +42,14 @@ if ( ! class_exists( 'ATFP_Custom_Block_Post' ) ) {
 				wp_enqueue_script( 'atfp-add-new-block', ATFP_URL . 'assets/js/atfp-add-new-block.min.js', array( 'jquery','wp-data', 'wp-element' ), ATFP_V, true );
 				wp_enqueue_style( 'atfp-supported-blocks', ATFP_URL . 'assets/css/atfp-supported-blocks.min.css', array(), ATFP_V, 'all' );
 
+				$atfp_utm_parameters='utm_source=atfp_plugin';
+
+				if(class_exists('ATFP_Helper')){
+					$atfp_utm_parameters=ATFP_Helper::utm_source_text();
+				}
+
 				wp_localize_script( 'atfp-add-new-block', 'atfpAddBlockVars', array(
-					'atfp_demo_page_url' => esc_url('https://coolplugins.net/product/automatic-translations-for-polylang/?utm_source=atfp_plugin&utm_medium=page&utm_campaign=get_pro&utm_content=buy_pro'),
+					'atfp_demo_page_url' => esc_url('https://coolplugins.net/product/automatic-translations-for-polylang/?'.sanitize_text_field($atfp_utm_parameters).'&utm_medium=page&utm_campaign=get_pro&utm_content=buy_pro'),
 				) );
 			}
 		}
@@ -89,19 +95,19 @@ if ( ! class_exists( 'ATFP_Custom_Block_Post' ) ) {
 		 */
 		public function register_custom_post_type() {
 			$labels = array(
-				'name'               => _x( 'Automatic Translations', 'post type general name' ),
-				'singular_name'      => _x( 'Automatic Translation', 'post type singular name' ),
-				'menu_name'          => _x( 'Automatic Translations', 'admin menu' ),
-				'name_admin_bar'     => _x( 'Automatic Translation', 'add new on admin bar' ),
-				'add_new'            => _x( 'Add New', 'Automatic Translation' ),
-				'add_new_item'       => __( 'Add New Automatic Translation' ),
-				'new_item'           => __( 'New Automatic Translation' ),
-				'edit_item'          => __( 'Edit Automatic Translation' ),
-				'view_item'          => __( 'View Automatic Translation' ),
-				'all_items'          => __( 'Automatic Translations' ),
-				'search_items'       => __( 'Search Automatic Translations' ),
-				'not_found'          => __( 'No Automatic Translations found.' ),
-				'not_found_in_trash' => __( 'No Automatic Translations found in Trash.' ),
+				'name'               => _x( 'Automatic Translations', 'post type general name', 'automatic-translations-for-polylang' ),
+				'singular_name'      => _x( 'Automatic Translation', 'post type singular name', 'automatic-translations-for-polylang' ),
+				'menu_name'          => _x( 'Automatic Translations', 'admin menu', 'automatic-translations-for-polylang' ),
+				'name_admin_bar'     => _x( 'Automatic Translation', 'add new on admin bar', 'automatic-translations-for-polylang' ),
+				'add_new'            => _x( 'Add New', 'Automatic Translation', 'automatic-translations-for-polylang' ),
+				'add_new_item'       => __( 'Add New Automatic Translation', 'automatic-translations-for-polylang' ),
+				'new_item'           => __( 'New Automatic Translation', 'automatic-translations-for-polylang' ),
+				'edit_item'          => __( 'Edit Automatic Translation', 'automatic-translations-for-polylang' ),
+				'view_item'          => __( 'View Automatic Translation', 'automatic-translations-for-polylang' ),
+				'all_items'          => __( 'Automatic Translations', 'automatic-translations-for-polylang' ),
+				'search_items'       => __( 'Search Automatic Translations', 'automatic-translations-for-polylang' ),
+				'not_found'          => __( 'No Automatic Translations found.', 'automatic-translations-for-polylang' ),
+				'not_found_in_trash' => __( 'No Automatic Translations found in Trash.', 'automatic-translations-for-polylang' ),
 			);
 
 			$args = array(

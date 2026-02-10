@@ -36,6 +36,8 @@ if(!class_exists('ATFP_Bulk_Translation')):
                 return;
             }
 
+            // nonce verification is not required here because we are not using the nonce here.
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $post_status=isset($_GET['post_status']) ? sanitize_text_field(wp_unslash($_GET['post_status'])) : '';
 
             if('trash' === $post_status){
@@ -51,7 +53,15 @@ if(!class_exists('ATFP_Bulk_Translation')):
 
         public function atfp_bulk_translate_button($views)
         {
-            echo wp_kses_post("<a class='button atfp-bulk-translate-btn' style='display:none;' title='Bulk Translate option is avialable in pro version only' href='https://coolplugins.net/product/autopoly-ai-translation-for-polylang/?utm_source=atfp_plugin&utm_medium=inside&utm_campaign=get_pro&utm_content=bulk_translate' target='_blank'>Bulk Translate (Pro)</a>");
+            $atfp_utm_parameters='utm_source=atfp_plugin';
+
+			if(class_exists('ATFP_Helper')){
+				$atfp_utm_parameters=ATFP_Helper::utm_source_text();
+			}
+
+            echo wp_kses("<a class='button atfp-bulk-translate-btn' style='display:none;' title='Bulk Translate option is avialable in pro version only' href='https://coolplugins.net/product/autopoly-ai-translation-for-polylang/?".sanitize_text_field($atfp_utm_parameters)."&utm_medium=inside&utm_campaign=get_pro&utm_content=bulk_translate' target='_blank'>Bulk Translate (Pro)</a>",
+                array('a' => array('class' => array(), 'style' => array(), 'title' => array(), 'href' => array(), 'target' => array(), 'rel' => array()))
+            );
 
             return $views;
         }

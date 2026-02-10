@@ -66,7 +66,7 @@ if (! class_exists('ATFP_Helper')) {
 			$existing_post = $query->posts ? $query->posts[0] : null;
 
 			if (! $existing_post) {
-				$post_title    = esc_html__('Add More Gutenberg Blocks', 'automatic-translation-for-polylang');
+				$post_title    = esc_html__('Add More Gutenberg Blocks', 'automatic-translations-for-polylang');
 				$first_post_id = wp_insert_post(
 					array(
 						'post_title'   => $post_title,
@@ -342,6 +342,33 @@ if (! class_exists('ATFP_Helper')) {
 			}
 
 			return true;
+		}
+
+		public static function utm_source_text(){
+			
+			if(defined('ATFP_REDIRECT_REFRENCE_TEXT')){
+				return self::get_utm_parameter(sanitize_text_field(ATFP_REDIRECT_REFRENCE_TEXT));
+			}
+			
+			if(function_exists('get_option') ){
+				$refrence_text=get_option('cpel_autopoly_installed', 'atfp');
+				
+				if(!defined('ATFP_REDIRECT_REFRENCE_TEXT')){
+					define('ATFP_REDIRECT_REFRENCE_TEXT', sanitize_text_field($refrence_text));
+				}
+
+				return self::get_utm_parameter(sanitize_text_field($refrence_text));
+			}
+
+			return self::get_utm_parameter('atfp');
+		}
+
+		private static function get_utm_parameter($prefix){
+			if($prefix === 'cpel'){
+				return 'ref=creame&utm_source='.$prefix.'_plugin';
+			}else{
+				return 'utm_source='.$prefix.'_plugin';
+			}
 		}
 	}
 }

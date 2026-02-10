@@ -1,4 +1,7 @@
 <?php
+if(!defined('ABSPATH')){
+    exit;
+}
 
 class ATFP_Register_Backend_Assets
 {
@@ -225,6 +228,12 @@ class ATFP_Register_Backend_Assets
             $extra_data['postMetaSync'] = 'true';
         }
 
+        $atfp_utm_parameters='utm_source=atfp_plugin';
+
+        if(class_exists('ATFP_Helper')){
+            $atfp_utm_parameters=ATFP_Helper::utm_source_text();
+        }
+
         $data = array_merge(array(
             'ajax_url'           => admin_url('admin-ajax.php'),
             'ajax_nonce'         => wp_create_nonce('atfp_translate_nonce'),
@@ -239,6 +248,7 @@ class ATFP_Register_Backend_Assets
             'current_post_id'    => $post_id,
             'translation_data'   => is_array($translation_data) ? (function() use (&$translation_data) { unset($translation_data['data']); return $translation_data; })() : array(),
             'pro_version_url'=>esc_url('https://coolplugins.net/product/autopoly-ai-translation-for-polylang/'),
+            'refrence_text'=>sanitize_text_field($atfp_utm_parameters),
         ), $extra_data);
 
         if(!isset(PLL()->options['sync']) || (isset(PLL()->options['sync']) && !in_array('post_meta', PLL()->options['sync']))){
