@@ -2,7 +2,7 @@
 /*
 Plugin Name: AutoPoly - AI Translation For Polylang
 Plugin URI: https://coolplugins.net/
-Version: 1.4.16
+Version: 1.5.0
 Author: Cool Plugins
 Author URI: https://coolplugins.net/?utm_source=atfp_plugin&utm_medium=inside&utm_campaign=author_page&utm_content=plugins_list
 Description: AutoPoly - AI Translation For Polylang simplifies your translation process by automatically translating all pages/posts content from one language to another.
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 if ( ! defined( 'ATFP_V' ) ) {
-	define( 'ATFP_V', '1.4.16' );
+	define( 'ATFP_V', '1.5.0' );
 }
 if ( ! defined( 'ATFP_DIR_PATH' ) ) {
 	define( 'ATFP_DIR_PATH', plugin_dir_path( __FILE__ ) );
@@ -164,17 +164,17 @@ if ( ! class_exists( 'AutoPoly' ) ) {
 
 				if(empty($active_tab) || $active_tab === 'dashboard'){
 					$dashboard_data=array(
-						'ajax_url' => admin_url('admin-ajax.php'),
+						'ajax_url' => esc_url(admin_url('admin-ajax.php')),
 						'nonce' => wp_create_nonce('atfp_update_enabled_providers'),
 						'buy_pro_url' => $buy_pro_url,
-						'dashboard_url' => admin_url('admin.php?page=polylang-atfp-dashboard&tab=dashboard')
+						'dashboard_url' => esc_url(admin_url('admin.php?page=polylang-atfp-dashboard&tab=dashboard'))
 					);
 					
 					wp_localize_script('atfp-dashboard-script', 'atfpSettingsScriptData', $dashboard_data);
 				}
 			}
 
-			if($page == 'polylang-atfp-dashboard' && in_array($active_tab, array('settings', 'dashboard'))){
+			if($page == 'polylang-atfp-dashboard' && (empty($active_tab) || in_array($active_tab, array('settings', 'dashboard')))){
 				wp_enqueue_script( 'atfp-dashboard-settings-script', ATFP_URL . 'admin/atfp-dashboard/js/atfp-chrome-ai-notice.min.js', array('jquery'), ATFP_V, true );
 				
 				$atfp_langugages=array(
@@ -184,7 +184,8 @@ if ( ! class_exists( 'AutoPoly' ) ) {
 					'all_languages' => array(),
 					'chrome_ai_bypass_api_check' => false,
 					'chrome_ai_bypass_language_check' => false,
-					'chrome_ai_bypass_browser_check' => false
+					'chrome_ai_bypass_browser_check' => false,
+					'enabled_providers' => ATFP_Helper::get_active_providers()
 				);
 
 				$atfp_supported_langugages=ATFP_Helper::get_polylang_supported_languages();
@@ -722,7 +723,7 @@ if ( ! class_exists( 'AutoPoly' ) ) {
 						if ( ! function_exists( 'PLL' ) || ! PLL()->model->is_translated_post_type( $post->post_type ) ) {
 							return;
 						}
-						add_meta_box( 'atfp-meta-box', __( 'Automatic Translate', 'automatic-translations-for-polylang' ), array( $this, 'atfp_shortcode_text' ), null, 'side', 'high' );
+						add_meta_box( 'atfp-meta-box', __( 'Automatic Translate', 'automatic-translations-for-polylang' ), array( $this, 'atfp_translate_button_new_post' ), null, 'side', 'high' );
 					}
 				}
 			}else{
@@ -732,7 +733,21 @@ if ( ! class_exists( 'AutoPoly' ) ) {
 					return;
 				}
 
-				if(!class_exists('ATFP_Re_Translation') || !ATFP_Re_Translation::retranslation_status($post->ID)){
+				if(!class_exists('ATFP_Re_Translation')){
+					return;
+				}
+
+				$old_untranslated_post=ATFP_Re_Translation::is_old_untranslated_post($post->ID);
+				if($old_untranslated_post){
+					$source_language=pll_get_post_language($post->ID, 'name');
+					$target_language=pll_get_post_language($old_untranslated_post, 'name');
+					// $this->render_translate_button($source_language, $target_language, true);
+
+					add_meta_box( 'atfp-meta-box', __( 'Automatic Translate', 'automatic-translations-for-polylang' ),  function() use ($source_language, $target_language) { $this->render_translate_button($source_language, $target_language, true); }, null, 'side', 'high' );
+					return;
+				}
+
+				if(!ATFP_Re_Translation::retranslation_status($post->ID)){
 					return;
 				}
 
@@ -773,7 +788,7 @@ if ( ! class_exists( 'AutoPoly' ) ) {
 					isset($_GET['from_post'], $_GET['new_lang'], $_GET['_wpnonce']) &&
 					wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'new-post-translation')
 				) {
-					$this->atfp_shortcode_text(false);
+					$this->atfp_translate_button_new_post(false);
 				}else{
 					$re_translation_status=ATFP_Re_Translation::retranslation_status($post->ID);
 	
@@ -786,7 +801,7 @@ if ( ! class_exists( 'AutoPoly' ) ) {
 		
 		public function atfp_retranslation_text($desc=true) {
 			?>
-			<a href="#" class="button button-primary" id="atfp-retranslate-button" value="<?php echo esc_attr__( 'Re-Translate Page', 'automatic-translations-for-polylang' ); ?>" readonly><?php echo esc_html__( 'Re-Translate Page', 'automatic-translations-for-polylang' ); ?></a>
+			<a href="#" class="button button-primary" id="atfp-retranslate-button" value="<?php echo esc_attr__( 'Re-Translate', 'automatic-translations-for-polylang' ); ?>" readonly><?php echo esc_html__( 'Re-Translate', 'automatic-translations-for-polylang' ); ?></a>
 			<?php if($desc){ ?>
 			<br><br>
 			<p style="margin-bottom: .5rem;"><?php echo esc_html__( 'Re-Translate the page content for updating changes.', 'automatic-translations-for-polylang' ); ?></p>
@@ -797,7 +812,7 @@ if ( ! class_exists( 'AutoPoly' ) ) {
 		/**
 		 * Display the automatic translation metabox button.
 		 */
-		public function atfp_shortcode_text($desc=true) {
+		public function atfp_translate_button_new_post($desc=true) {
 			if ( isset( $_GET['_wpnonce'] ) &&
 				 wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'new-post-translation' ) ) {
 				$target_language = '';
@@ -811,15 +826,19 @@ if ( ! class_exists( 'AutoPoly' ) ) {
 						}
 					}
 				}
-				?>
-				<a href="#" class="button button-primary" id="atfp-translate-button"><?php echo esc_html__( 'Translate Page', 'automatic-translations-for-polylang' ); ?></a>
-				<?php if($desc){ ?>
-					<br><br>
-					<p style="margin-bottom: .5rem;"><?php
-					// translators: 1: Source language, 2: Target language
-					echo esc_html( sprintf( __( 'Translate or duplicate content from %1$s to %2$s', 'automatic-translations-for-polylang' ), $source_language, $target_language ) ); ?></p>
-				<?php
-				}
+				$this->render_translate_button($source_language, $target_language, $desc);
+			}
+		}
+
+		private function render_translate_button($source_language, $target_language, $desc=true) {
+			?>
+			<a href="#" class="button button-primary" id="atfp-translate-button"><?php echo esc_html__( 'Translate Page', 'automatic-translations-for-polylang' ); ?></a>
+			<?php if($desc){ ?>
+				<br><br>
+				<p style="margin-bottom: .5rem;"><?php
+				// translators: 1: Source language, 2: Target language
+				echo esc_html( sprintf( __( 'Translate or duplicate content from %1$s to %2$s', 'automatic-translations-for-polylang' ), $source_language, $target_language ) ); ?></p>
+			<?php
 			}
 		}
 
