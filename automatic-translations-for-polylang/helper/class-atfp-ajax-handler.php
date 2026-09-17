@@ -86,7 +86,7 @@ if ( ! class_exists( 'ATFP_Ajax_Handler' ) ) {
 				return wp_send_json_error( __( 'Unauthorized', 'automatic-translations-for-polylang' ), 403 );
 			}
 
-			$block_parse_rules = ATFP_Helper::get_instance()->get_block_parse_rules();
+			$block_parse_rules = ATFP_Helper::get_instance()->get_translatable_block_parse_rules();
 
 			$data = array(
 				'blockRules' => wp_json_encode( $block_parse_rules ),
@@ -659,6 +659,11 @@ if ( ! class_exists( 'ATFP_Ajax_Handler' ) ) {
                     ],
                     'dependency'     => 'loco-translate/loco.php',
                     'dependency_msg' => esc_html__( 'Please activate Loco Translate plugin first.', 'automatic-translations-for-polylang' ),
+                ],
+                'language-switcher-for-divi-polylang' => [
+                    'files' => [
+                        'language-switcher-for-divi-polylang/language-switcher-for-divi-polylang.php',
+                    ],
                 ]
             ];
 
