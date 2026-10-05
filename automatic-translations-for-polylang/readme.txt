@@ -4,7 +4,7 @@ Tags: Polylang, AI Translation, Content Translation, Translate
 Requires at least: 5.3.1
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 Author URI: https://coolplugins.net/?utm_source=atfp_plugin&utm_medium=readme&utm_campaign=author_page&utm_content=plugins_list
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -268,6 +268,11 @@ Yes, this plugin supports automatic translations for content created with the Cl
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities.[Report a security vulnerability](https://patchstack.com/database/wordpress/plugin/automatic-translations-for-polylang/vdp)
 
 == Changelog ==
+
+= Version 1.6.2 | 05 October 2026 =
+* **Added:** Introduced a unified Toolkit for Polylang dashboard to manage Polylang addons.
+* **Fixed:** Resolved an issue where media uploads were saving to incorrect month folders by preventing a global $post override in the helper class.
+* **Tested Up to:** WordPress 7.1.2 and Polylang 3.8.10.
 
 = Version 1.6.1 | 17 September 2026 =
 * **Added:** Support for translation rules defined in wpml-config.xml files.
